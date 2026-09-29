@@ -21,7 +21,7 @@ node --test --test-name-pattern="doble clic" "tests/unit/*.test.mjs"   # una sol
 ```
 
 - Requiere Node ≥ 22.13 (`node:sqlite`). La bandera `--disable-warning=ExperimentalWarning` silencia el aviso de SQLite experimental.
-- Variables de entorno: `PORT`, `DB_PATH` (por defecto `data/app.db`), `ADMIN_USER` / `ADMIN_PASSWORD` (solo se leen al crear el admin en el **primer arranque**; admin por defecto `admin` / `Admin-APP-2026`). Para regenerar la base, borra `data/app.db*`.
+- Variables de entorno: `PORT`, `DB_PATH` (por defecto `data/app.db`), `ADMIN_USER` / `ADMIN_PASSWORD` (solo se leen al crear el admin en el **primer arranque**; sin `ADMIN_PASSWORD` se genera una clave aleatoria que se imprime una vez en consola). No escribas contraseñas en el README, el código ni este archivo: el repositorio es público. Para regenerar la base, borra `data/app.db*`.
 - Cada prueba arranca su propio `server.js` como proceso hijo con `DB_PATH` en `tests/.tmp/` (helpers en `tests/helpers.mjs`); nunca usan `data/app.db`, que además está en `.gitignore` (tiene datos reales de estudiantes).
 - Los cambios en `public/` no requieren reiniciar el servidor (se sirven con `Cache-Control: no-cache`).
 

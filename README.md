@@ -16,17 +16,13 @@ Abrir <http://localhost:3000>. El puerto se cambia con la variable `PORT`.
 
 ## Administrador
 
-Al primer arranque se crea el usuario administrador:
-
-| Usuario | Contraseña predeterminada |
-|---------|---------------------------|
-| `admin` | `Admin-APP-2026` |
-
-Cámbiela antes de publicar el sitio: defina `ADMIN_USER` y `ADMIN_PASSWORD` **antes del primer arranque** (o borre `data/app.db` para regenerar la base).
+El usuario administrador (`admin`, o el valor de `ADMIN_USER`) se crea en el **primer arranque**, cuando aún no existe la base de datos. Su contraseña se toma de la variable `ADMIN_PASSWORD`:
 
 ```powershell
-$env:ADMIN_PASSWORD = "una-clave-segura"; npm start
+$env:ADMIN_PASSWORD = "<su-clave>"; npm start
 ```
+
+Si no se define `ADMIN_PASSWORD`, se genera una contraseña aleatoria y se muestra **una sola vez** en la consola. Guárdela. Estas variables solo se leen al crear la base; para empezar de cero, borre `data/app.db*`.
 
 ## Secciones
 

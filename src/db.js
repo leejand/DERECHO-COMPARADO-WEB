@@ -95,11 +95,13 @@ function seedAdmin() {
   const exists = db.prepare("SELECT id FROM users WHERE role = 'admin' LIMIT 1").get();
   if (exists) return;
   const user = process.env.ADMIN_USER || 'admin';
-  const pass = process.env.ADMIN_PASSWORD || 'Admin-APP-2026';
+  // Sin ADMIN_PASSWORD se genera una clave aleatoria: nunca hay una contraseña conocida en el código.
+  const pass = process.env.ADMIN_PASSWORD || crypto.randomBytes(9).toString('base64url');
   const { hash, salt } = hashPassword(pass);
   db.prepare("INSERT INTO users (name, name_key, password_hash, salt, role) VALUES (?, ?, ?, ?, 'admin')")
     .run(user, nameKey(user), hash, salt);
-  console.log(`[db] Usuario administrador creado: "${user}" (contraseña definida en ADMIN_PASSWORD o la predeterminada del README).`);
+  if (process.env.ADMIN_PASSWORD) console.log(`[db] Usuario administrador creado: "${user}" (contraseña definida en ADMIN_PASSWORD).`);
+  else console.log(`[db] Usuario administrador creado: "${user}" · contraseña generada: ${pass}  (guárdela: no se volverá a mostrar)`);
 }
 seedAdmin();
 
